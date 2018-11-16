@@ -37,7 +37,8 @@ public:
 	void TestPeriodic() override;
 
 private:
-	static std::unordered_map<unsigned int, frc::Subsystem*> components_;
+	static std::unordered_map<Component, frc::Subsystem*,
+							  std::hash<unsigned int>> components_;
 
 	frc::Command* m_autonomousCommand = nullptr;
 	frc::SendableChooser<frc::Command*> m_chooser;

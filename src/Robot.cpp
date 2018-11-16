@@ -12,7 +12,8 @@
 #include <SmartDashboard/SmartDashboard.h>
 
 OI Robot::m_oi;
-std::unordered_map<unsigned int, frc::Subsystem*> Robot::components_;
+std::unordered_map<Robot::Component, frc::Subsystem*,
+				   std::hash<unsigned int>> Robot::components_;
 
 void Robot::RobotInit()
 {
