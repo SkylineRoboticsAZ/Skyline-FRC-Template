@@ -7,7 +7,21 @@
 
 #pragma once
 
+#include "Robot.h"
+#include "Interfaces/OutputDevice.h"
+#include "Extensions/InputSubsystem.h"
+#include "OIJoystick.h"
+
+#include <memory>
+
 class OI {
 public:
 	OI();
+
+	void bindControl(InputSubsystem *subsystem,
+				     unsigned int input,
+			         std::shared_ptr<OutputDevice> output);
+
+private:
+	OIJoystick primaryJoystick_;
 };

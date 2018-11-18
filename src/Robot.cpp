@@ -11,8 +11,8 @@
 #include <Commands/Subsystem.h>
 #include <SmartDashboard/SmartDashboard.h>
 
-OI Robot::m_oi;
-std::unordered_map<Robot::Component, frc::Subsystem*,
+OI Robot::oi_;
+std::unordered_map<Robot::SubsystemType, InputSubsystem*,
 				   std::hash<unsigned int>> Robot::components_;
 
 void Robot::RobotInit()
@@ -54,9 +54,9 @@ void Robot::TeleopPeriodic()
 	frc::Scheduler::GetInstance()->Run();
 }
 
-frc::Subsystem* Robot::getComponent(Robot::Component component)
+InputSubsystem* Robot::getSubsystem(Robot::SubsystemType subsystem)
 {
-	return components_[component];
+	return components_[subsystem];
 }
 
 void Robot::TestPeriodic() {}

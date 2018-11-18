@@ -14,18 +14,21 @@
 
 #include <unordered_map>
 
-#include "OI.h"
+#include "OperatorInterface/OI.h"
+#include "Extensions/InputSubsystem.h"
+
+class OI;
 
 class Robot : public frc::TimedRobot
 {
 public:
-	enum Component : unsigned int
+	enum SubsystemType : unsigned int
 	{
 		DriveTrain
 	};
 
-	static OI m_oi;
-	static frc::Subsystem* getComponent(Component component);
+	static OI oi_;
+	static InputSubsystem* getSubsystem(Robot::SubsystemType subsystem);
 
 	void RobotInit() override;
 	void DisabledInit() override;
@@ -37,7 +40,7 @@ public:
 	void TestPeriodic() override;
 
 private:
-	static std::unordered_map<Component, frc::Subsystem*,
+	static std::unordered_map<Robot::SubsystemType, InputSubsystem*,
 							  std::hash<unsigned int>> components_;
 
 	frc::Command* m_autonomousCommand = nullptr;

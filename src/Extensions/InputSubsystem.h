@@ -21,6 +21,7 @@ public:
 
 	void bindInput(unsigned int input, std::shared_ptr<OutputDevice> output);
 	double readInput(unsigned int input) const;
+	std::shared_ptr<OutputDevice> getOutput(unsigned int input);
 
 private:
 	std::unordered_map<unsigned int, std::shared_ptr<OutputDevice>> controls_;
