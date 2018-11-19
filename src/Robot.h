@@ -15,7 +15,6 @@
 #include <unordered_map>
 
 #include "OperatorInterface/OI.h"
-#include "Extensions/InputSubsystem.h"
 
 class OI;
 
@@ -28,7 +27,7 @@ public:
 	};
 
 	static OI oi_;
-	static InputSubsystem* getSubsystem(Robot::SubsystemType subsystem);
+	static frc::Subsystem* getSubsystem(Robot::SubsystemType subsystem);
 
 	void RobotInit() override;
 	void DisabledInit() override;
@@ -40,7 +39,7 @@ public:
 	void TestPeriodic() override;
 
 private:
-	static std::unordered_map<Robot::SubsystemType, InputSubsystem*,
+	static std::unordered_map<Robot::SubsystemType, frc::Subsystem*,
 							  std::hash<unsigned int>> components_;
 
 	frc::Command* m_autonomousCommand = nullptr;

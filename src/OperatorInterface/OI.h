@@ -9,19 +9,28 @@
 
 #include "Robot.h"
 #include "Interfaces/OutputDevice.h"
-#include "Extensions/InputSubsystem.h"
-#include "OIJoystick.h"
 
+#include <unordered_map>
 #include <memory>
+#include <Joystick.h>
 
 class OI {
 public:
+	enum Input : unsigned int
+	{
+		Input1, Input2
+	};
+
 	OI();
 
-	void bindControl(InputSubsystem *subsystem,
-				     unsigned int input,
-			         std::shared_ptr<OutputDevice> output);
+	void setInput(Input input, std::shared_ptr<OutputDevice> output);
+	std::shared_ptr<OutputDevice> getInput(Input input);
+
+	double readInput(Input input) const;
 
 private:
-	OIJoystick primaryJoystick_;
+	std::unordered_map<Input, std::shared_ptr<OutputDevice>,
+	                   std::hash<unsigned int>> controls_;
+
+	frc::Joystick primaryJoystick_;
 };

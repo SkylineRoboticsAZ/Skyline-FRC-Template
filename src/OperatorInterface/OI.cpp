@@ -7,20 +7,30 @@
 
 #include "OI.h"
 
+#include <iostream>
+
 OI::OI() : primaryJoystick_(1)
 {
-	//DriveTrain Configuration
-	InputSubsystem *driveTrain = Robot::getSubsystem(Robot::DriveTrain);
-	driveTrain->bindInput(0, primaryJoystick_.getOutput(JoystickOutput::XAxis));
 
-	bindControl(Robot::getSubsystem(Robot::DriveTrain),
-			    Robot::DriveTrain,
-				primaryJoystick_.getOutput(JoystickOutput::XAxis));
 }
 
-void OI::bindControl(InputSubsystem *subsystem,
-				     unsigned int input,
-			         std::shared_ptr<OutputDevice> output)
+void OI::setInput(Input input, std::shared_ptr<OutputDevice> output)
 {
-	subsystem->bindInput(input, output);
+	controls_[input] = output;
+}
+
+std::shared_ptr<OutputDevice> OI::getInput(Input input)
+{
+	return controls_[input];
+}
+
+double OI::readInput(Input input) const
+{
+	try {
+		return controls_.at(input)->getOutput();
+	} catch (...) {
+		std::cerr << "Error while reading input " << input <<
+				" returning default value of 0" << std::endl;
+		return 0;
+	}
 }
